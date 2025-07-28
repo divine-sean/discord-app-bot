@@ -1,0 +1,23 @@
+{
+  "name": "sean-app",
+  "version": "1.0.0",
+  "description": "Just a bot I made for myself as a utilities bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/divine-sean/discord-app-bot.git"
+  },
+  "author": "Sean Osborne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/divine-sean/discord-app-bot/issues"
+  },
+  "homepage": "https://github.com/divine-sean/discord-app-bot#readme",
+  "dependencies": {
+    "discord.js": "^14.21.0",
+    "dotenv": "^17.2.1"
+  }
+}
