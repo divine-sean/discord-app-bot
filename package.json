@@ -1,5 +1,6 @@
 {
   "name": "sean-app",
+  "type": "module",
   "version": "1.0.0",
   "description": "Just a bot I made for myself as a utilities bot",
   "main": "index.js",
