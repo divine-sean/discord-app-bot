@@ -5,7 +5,13 @@ import path from 'node:path';
 
 config();
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers
+  ],
+});
+
 client.commands = new Collection();
 
 const commandsPath = path.join(process.cwd(), 'commands');
@@ -59,45 +65,6 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 const useGuildCommands = process.env.USE_GUILD_COMMANDS === 'true';
 
-(async () => {
-    try {
-        if (useGuildCommands) {
-            if (!process.env.GUILD_ID) {
-                throw new Error('GUILD_ID environment variable is required when USE_GUILD_COMMANDS=true');
-            }
-            console.log('Registering commands in guild and global (fast testing).');
-            rest.put(
-                Routes.applicationCommands(process.env.CLIENT_ID),
-                { body: commands }
-            )
-            await rest.put(
-                Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
-                { body: commands }
-            );
-            console.log('Guild commands updated.');
-        } else {
-            // Register global commands...
-            console.log('Registering global commands and also updating guild commands for fast testing.');
-
-            if (!process.env.GUILD_ID) {
-                throw new Error('GUILD_ID environment variable is required for guild commands update.');
-            }
-
-            await Promise.all([
-                rest.put(
-                    Routes.applicationCommands(process.env.CLIENT_ID),
-                    { body: commands }
-                )
-            ]);
-
-            console.log('Global and guild commands updated.');
-        }
-    } catch (error) {
-        console.error(error);
-    }
-})();
-
-
 client.on(Events.InteractionCreate, async interaction => {
     // Handle slash commands and user/message context menus
     if (
@@ -121,6 +88,45 @@ client.on(Events.InteractionCreate, async interaction => {
 
 client.once(Events.ClientReady, c => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
+
+    const statuses = [
+        { name: `${client.guilds.cache.size} servers`, type: 'WATCHING' },
+        { name: `to DMs and Context Menus`, type: 'LISTENING' },
+        { name: `with ${client.users.cache.size} users`, type: 'PLAYING' },
+    ];
+
+    let i = 0;
+    setInterval(() => {
+        const status = statuses[i % statuses.length];
+        client.user.setActivity(status.name, { type: status.type });
+        i++;
+    }, 10_000); // rotate every 10 seconds
 });
+
+(async () => {
+  try {
+    console.log(`Started refreshing ${commands.length} application (/) commands.`);
+
+    if (useGuildCommands) {
+      const guildId = process.env.GUILD_ID;
+      if (!guildId) throw new Error('GUILD_ID is not defined in .env');
+
+      await rest.put(
+        Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId),
+        { body: commands },
+      );
+      console.log('Successfully reloaded guild application commands.');
+    } else {
+      await rest.put(
+        Routes.applicationCommands(process.env.CLIENT_ID),
+        { body: commands },
+      );
+      console.log('Successfully reloaded global application commands.');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+})();
+
 
 client.login(process.env.TOKEN);

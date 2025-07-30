@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder, InteractionContextType } from 'discord.js';
 import os from 'os';
 import pidusage from 'pidusage';
 import si from 'systeminformation';
@@ -6,7 +6,8 @@ import si from 'systeminformation';
 export default {
   data: new SlashCommandBuilder()
     .setName('botinfo')
-    .setDescription('Shows information about the bot'),
+    .setDescription('Shows information about the bot')
+    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel),
 
   async execute(interaction) {
     const ping = Math.round(interaction.client.ws.ping);
@@ -49,6 +50,7 @@ export default {
       footer: { text: 'Bot Info' },
     };
 
+    console.log("Bot info");
     await interaction.reply({ embeds: [embed] });
   },
 };

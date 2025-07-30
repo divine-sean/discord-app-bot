@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, ContextMenuCommandBuilder, ApplicationCommandType } from 'discord.js';
+import { SlashCommandBuilder, ContextMenuCommandBuilder, ApplicationCommandType, InteractionContextType } from 'discord.js';
 
 export default [
   {
@@ -6,18 +6,19 @@ export default [
     data: new SlashCommandBuilder()
       .setName('user-info')
       .setDescription('Displays info about you or someone else.')
+      .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel)
       .addUserOption(option =>
         option.setName('target')
           .setDescription('The user you want info on')
           .setRequired(false)
       ),
     async execute(interaction) {
+      console.log("user info");
       const user = interaction.options.getUser('target') || interaction.user;
       const member = interaction.guild?.members.cache.get(user.id);
 
       await interaction.reply({
         embeds: [generateUserEmbed(user, member, interaction.user)],
-        ephemeral: false,
       });
     }
   },
@@ -32,7 +33,6 @@ export default [
 
       await interaction.reply({
         embeds: [generateUserEmbed(user, member, interaction.user)],
-        ephemeral: false,
       });
     }
   }
