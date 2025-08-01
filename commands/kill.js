@@ -13,6 +13,6 @@ export default {
   
   async execute(interaction) {
     const targetUser = interaction.options.getUser('target');
-    await interaction.reply(`${targetUser} died`);
+    await interaction.reply(`I killed ${targetUser} so they died\nhttps://tenor.com/view/die-spongebob-meme-gif-754776035690869996`);
   }
 };
