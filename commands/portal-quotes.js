@@ -11,6 +11,7 @@ const portalQuotes = [
   "Remember when the platform was sliding into the fire pit and I said 'Goodbye' and you were like 'No way!'",
   "I am NOT! A MORON!",
   "Well, how about now? NOW WHO'S A MORON? Could a MORON PUNCH! YOU! INTO! THIS! PIT? Huh? Could a moron do THAT! .... Uh oh"
+  
 ];
 
 export default {
