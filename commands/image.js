@@ -3,8 +3,13 @@ import fetch from 'node-fetch';
 
 export default {
   data: new SlashCommandBuilder()
-    .setName('cat')
-    .setDescription('cat')
+    .setName('image')
+    .setDescription('Search and send a random image from Pixabay. Syntax example: cat+snow')
+    .addStringOption(option =>
+      option
+        .setName('query')
+        .setDescription('What image do you want to search for?')
+        .setRequired(false))
     .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel),
 
   async execute(interaction) {
@@ -16,7 +21,9 @@ export default {
         return interaction.editReply('Pixabay API key is not configured.');
       }
 
-      const query = 'cat';
+      // Get the query from user input or fallback to 'cat'
+      const query = interaction.options.getString('query')?.trim() || 'cat';
+
       const url = `https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(query)}&image_type=photo&safesearch=true&per_page=50`;
 
       const res = await fetch(url);
@@ -24,16 +31,11 @@ export default {
 
       const data = await res.json();
 
-      // Filter out snow leopards if any sneak in the results (by tags)
-      const leopardImages = data.hits.filter(img =>
-        !img.tags.toLowerCase().includes('dog')
-      );
-
-      if (!leopardImages.length) {
-        return interaction.editReply('No normal cat images found at the moment. Try again later.');
+      if (!data.hits.length) {
+        return interaction.editReply(`No images found for "${query}". Try a different search term.`);
       }
 
-      const image = leopardImages[Math.floor(Math.random() * leopardImages.length)];
+      const image = data.hits[Math.floor(Math.random() * data.hits.length)];
 
       // Download the image buffer
       const imgResponse = await fetch(image.webformatURL);
@@ -49,19 +51,19 @@ export default {
 
       // Build embed
       const embed = new EmbedBuilder()
-        .setTitle('Random car Image')
+        .setTitle(`Random image for "${query}"`)
         .setURL(image.pageURL)
-        .setImage('attachment://car.jpg')
+        .setImage('attachment://image.jpg')
         .setColor(0xFFC107)
         .setFooter(footerOptions);
 
       await interaction.editReply({
         embeds: [embed],
-        files: [{ attachment: imgBuffer, name: 'car.jpg' }]
+        files: [{ attachment: imgBuffer, name: 'image.jpg' }]
       });
     } catch (error) {
       console.error(error);
-      await interaction.editReply('Failed to fetch car images. Please try again later.');
+      await interaction.editReply('Failed to fetch images. Please try again later.');
     }
   }
 };
