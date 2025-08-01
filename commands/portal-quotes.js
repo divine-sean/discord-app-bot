@@ -2,7 +2,7 @@ import { SlashCommandBuilder, InteractionContextType } from 'discord.js';
 
 const portalQuotes = [
   "The cake is a lie.",
-  "This was a triumph. I'm making a note here: HUGE SUCCESS.",
+  "I'm making a note here: HUGE SUCCESS.",
   "Still alive.",
   "I'm afraid you're about to become the immediate past president of the being alive club.",
   "You monster.",
