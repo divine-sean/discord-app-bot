@@ -2,15 +2,15 @@ import { SlashCommandBuilder, InteractionContextType } from 'discord.js';
 
 const portalQuotes = [
   "The cake is a lie.",
-  "I'm not a cake expert, but this seems safe.",
   "This was a triumph. I'm making a note here: HUGE SUCCESS.",
   "Still alive.",
-  "I'm afraid you're about to become the immediate past president of the Aperture Science 'Intelligence' quotient.",
+  "I'm afraid you're about to become the immediate past president of the being alive club.",
   "You monster.",
-  "Look at you still trying to figure it out.",
   "We do what we must because we can.",
-  "This next test is impossible.",
+  "The Enrichment Center regrets to inform you that this next test is impossible. Make no attempt to solve it.",
   "Remember when the platform was sliding into the fire pit and I said 'Goodbye' and you were like 'No way!'",
+  "I am NOT! A MORON!",
+  "Well, how about now? NOW WHO'S A MORON? Could a MORON PUNCH! YOU! INTO! THIS! PIT? Huh? Could a moron do THAT! .... Uh oh"
 ];
 
 export default {
