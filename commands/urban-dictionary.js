@@ -5,7 +5,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('urban')
     .setDescription('Get the Urban Dictionary definition for a word.')
-    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM)
+    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel)
     .addStringOption(option =>
       option.setName('term')
         .setDescription('Term to search')

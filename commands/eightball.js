@@ -19,7 +19,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('8ball')
     .setDescription('Ask the magic 8-ball a yes/no question.')
-    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM)
+    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel)
     .addStringOption(option => 
       option.setName('question')
         .setDescription('Your yes/no question')

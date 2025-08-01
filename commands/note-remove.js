@@ -6,7 +6,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('note-remove')
     .setDescription('Remove a note from a user.')
-    .setContexts(InteractionContextType.Guild)
+    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel)
     .addUserOption(option =>
       option.setName('user').setDescription('User to remove a note from').setRequired(true))
     .addIntegerOption(option =>

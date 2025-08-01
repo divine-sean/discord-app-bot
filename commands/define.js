@@ -5,7 +5,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('define')
     .setDescription('Get the definition of a word.')
-    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM)
+    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel)
     .addStringOption(option =>
       option.setName('word')
         .setDescription('The word to define')

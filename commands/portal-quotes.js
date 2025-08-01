@@ -18,7 +18,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('portalquote')
     .setDescription('Get a random Portal / Portal 2 quote')
-    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM),
+    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel),
 
   async execute(interaction) {
     const quote = portalQuotes[Math.floor(Math.random() * portalQuotes.length)];

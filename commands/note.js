@@ -7,7 +7,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('note')
     .setDescription('Attach a private note to a user.')
-    .setContexts(InteractionContextType.Guild)
+    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel)
     .addUserOption(option =>
       option.setName('user').setDescription('User to note').setRequired(true))
     .addStringOption(option =>

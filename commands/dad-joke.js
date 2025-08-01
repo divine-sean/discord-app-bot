@@ -5,7 +5,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('joke')
     .setDescription('Tell a random joke.')
-    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM),
+    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel),
 
   async execute(interaction) {
     try {

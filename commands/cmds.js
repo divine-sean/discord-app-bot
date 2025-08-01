@@ -4,7 +4,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('cmds')
     .setDescription('List all available commands and their descriptions.')
-    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM),
+    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel),
 
   async execute(interaction) {
     // Get commands collection from client

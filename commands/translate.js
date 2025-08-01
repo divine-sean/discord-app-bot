@@ -5,7 +5,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('translate')
     .setDescription('Translate text to another language.')
-    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM)
+    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel)
     .addStringOption(option => option.setName('text').setDescription('Text to translate').setRequired(true))
     .addStringOption(option => option.setName('lang').setDescription('Target language code (e.g. en, fr)').setRequired(true)),
 

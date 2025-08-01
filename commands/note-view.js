@@ -6,7 +6,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('note-view')
     .setDescription('View notes attached to a user.')
-    .setContexts(InteractionContextType.Guild)
+    .setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel)
     .addUserOption(option =>
       option.setName('user').setDescription('User to view notes for').setRequired(true)),
 
