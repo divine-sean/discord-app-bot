@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/divine-sean/discord-app-bot#readme",
   "dependencies": {
+    "canvas": "^3.1.2",
     "discord.js": "^14.21.0",
     "dotenv": "^17.2.1",
     "node-fetch": "^3.3.2",

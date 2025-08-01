@@ -11,8 +11,10 @@ const answers = [
   "Very doubtful.",
   "Fuck you.",
   "**Shrugs**",
-  "Idk man why are you asking me. Not like I'm an 8ball or anything",
-  "Why are you asking questions to a pool ball? :8ball:"
+  "Why are you asking questions to a pool ball? :8ball:",
+  "What",
+  "Yes",
+  "There is a yes, you're just bad."
 ];
 
 export default {

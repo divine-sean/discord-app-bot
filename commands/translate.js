@@ -16,9 +16,21 @@ export default {
     try {
       const res = await fetch('https://libretranslate.de/translate', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ q: text, target: lang }),
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          q: text,
+          source: 'auto',
+          target: lang,
+          format: 'text',
+        }),
       });
+
+      const contentType = res.headers.get('content-type');
+      if (!res.ok || !contentType?.includes('application/json')) {
+        const errText = await res.text();
+        throw new Error(`Unexpected response: ${errText.slice(0, 100)}`);
+      }
+
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       await interaction.reply(`Translation (${lang}): ${data.translatedText}`);
